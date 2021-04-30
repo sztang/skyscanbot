@@ -72,7 +72,7 @@ def analyzequotes(quotemaster,triplength):
         lastbestprice = lastmin.loc[lastmin['tripLength']==x,'MinPrice'].values[0]
         newbestprice = summarymin.loc[summarymin['tripLength']==x,'MinPrice'].values[0]
         if newbestprice < lastbestprice:
-            print('Price for {}-day trip has DECREASED.'.format(triplength))
+            print('Price for {}-day trip has DECREASED to ${}.'.format(x,newbestprice))
             print('Dates: {}-{}\nOutbound: {}-{} | {}\nInbound: {}-{} | {}'.format(
                 summarymin.loc[summarymin['tripLength']==x,'OutDate'].values[0],
                 summarymin.loc[summarymin['tripLength']==x,'InDate'].values[0],
@@ -84,9 +84,9 @@ def analyzequotes(quotemaster,triplength):
                 summarymin.loc[summarymin['tripLength']==x,'InCarrier'].values[0]
             ))
         elif newbestprice > lastbestprice:
-            print('Price for {}-day trip has INCREASED.'.format(triplength))
+            print('Price for {}-day trip has INCREASED to ${}.'.format(x,newbestprice))
         elif newbestprice == lastbestprice:
-            print('Price for {}-day trip has NOT CHANGED.'.format(triplength))
+            print('Price for {}-day trip has NOT CHANGED.'.format(x))
         print('\n-------------------------------\n')
 
     summarymin.to_csv('MinimumQuotes.csv')
