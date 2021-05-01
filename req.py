@@ -68,28 +68,29 @@ def analyzequotes(quotemaster,triplength):
         quotemin.append(quoteslice['MinPrice'].idxmin())
     summarymin = quotemaster.iloc[quotemaster.index.isin(quotemin)]
 
-    lastmin = pd.read_csv('MinimumQuotes.csv')
+    if os.path.isfile('MinimumQuotes.csv'):
+        lastmin = pd.read_csv('MinimumQuotes.csv')
     
-    for x in triplength:
-        lastbestprice = lastmin.loc[lastmin['tripLength']==x,'MinPrice'].values[0]
-        newbestprice = summarymin.loc[summarymin['tripLength']==x,'MinPrice'].values[0]
-        if newbestprice < lastbestprice:
-            print('Price for {}-day trip has DECREASED to ${}.'.format(x,newbestprice))
-            print('Dates: {}-{}\nOutbound: {}-{} | {}\nInbound: {}-{} | {}'.format(
-                summarymin.loc[summarymin['tripLength']==x,'OutDate'].values[0],
-                summarymin.loc[summarymin['tripLength']==x,'InDate'].values[0],
-                summarymin.loc[summarymin['tripLength']==x,'OutOrigin'].values[0],
-                summarymin.loc[summarymin['tripLength']==x,'OutDest'].values[0],
-                summarymin.loc[summarymin['tripLength']==x,'OutCarrier'].values[0],
-                summarymin.loc[summarymin['tripLength']==x,'InOrigin'].values[0],
-                summarymin.loc[summarymin['tripLength']==x,'InDest'].values[0],
-                summarymin.loc[summarymin['tripLength']==x,'InCarrier'].values[0]
-            ))
-        elif newbestprice > lastbestprice:
-            print('Price for {}-day trip has INCREASED to ${}.'.format(x,newbestprice))
-        elif newbestprice == lastbestprice:
-            print('Price for {}-day trip has NOT CHANGED.'.format(x))
-        print('\n-------------------------------\n')
+        for x in triplength:
+            lastbestprice = lastmin.loc[lastmin['tripLength']==x,'MinPrice'].values[0]
+            newbestprice = summarymin.loc[summarymin['tripLength']==x,'MinPrice'].values[0]
+            if newbestprice < lastbestprice:
+                print('Price for {}-day trip has DECREASED to ${}.'.format(x,newbestprice))
+                print('Dates: {}-{}\nOutbound: {}-{} | {}\nInbound: {}-{} | {}'.format(
+                    summarymin.loc[summarymin['tripLength']==x,'OutDate'].values[0],
+                    summarymin.loc[summarymin['tripLength']==x,'InDate'].values[0],
+                    summarymin.loc[summarymin['tripLength']==x,'OutOrigin'].values[0],
+                    summarymin.loc[summarymin['tripLength']==x,'OutDest'].values[0],
+                    summarymin.loc[summarymin['tripLength']==x,'OutCarrier'].values[0],
+                    summarymin.loc[summarymin['tripLength']==x,'InOrigin'].values[0],
+                    summarymin.loc[summarymin['tripLength']==x,'InDest'].values[0],
+                    summarymin.loc[summarymin['tripLength']==x,'InCarrier'].values[0]
+                ))
+            elif newbestprice > lastbestprice:
+                print('Price for {}-day trip has INCREASED to ${}.'.format(x,newbestprice))
+            elif newbestprice == lastbestprice:
+                print('Price for {}-day trip has NOT CHANGED.'.format(x))
+            print('\n-------------------------------\n')
 
     summarymin.to_csv('MinimumQuotes.csv')
     quotemaster.to_csv('AllQuotes.csv')
