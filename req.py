@@ -6,8 +6,10 @@ from time import sleep
 
 def apicall(startdate,enddate):
     # defaults
-    origin = 'NYCA-sky' # New York any
-    dest = 'GR' # Greece any
+    # origin = 'NYCA-sky' # New York any
+    origin = 'GR' # For Greece to Croatia
+    # dest = 'GR' # Greece any
+    dest = 'HR' # Greece any
     # startdate = '2021-06-21'
     # enddate = '2021-07-01'
 
@@ -96,11 +98,11 @@ if __name__ == "__main__":
     print('============================\nRunning skyscanbot...')
 
     # create datelist (range of dates for travel)
-    base = datetime.datetime.strptime('2021-06-18','%Y-%m-%d')
-    datelist = [base + datetime.timedelta(days=x) for x in range(25)]
+    base = datetime.datetime.strptime('2021-06-25','%Y-%m-%d')
+    datelist = [base + datetime.timedelta(days=x) for x in range(13)]
 
     # decide range of trip length
-    triplength = [x for x in range(9,15)]
+    triplength = [x for x in range(3,7)]
 
     blocks = []
     callcount = 0
