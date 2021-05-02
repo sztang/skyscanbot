@@ -100,7 +100,7 @@ if __name__ == "__main__":
 
     # create datelist (range of dates for travel)
     base = datetime.datetime.strptime('2021-06-25','%Y-%m-%d')
-    datelist = [base + datetime.timedelta(days=x) for x in range(13)]
+    datelist = [base + datetime.timedelta(days=x) for x in range(12)]
 
     # decide range of trip length
     triplength = [x for x in range(3,7)]
